@@ -112,7 +112,9 @@ extension AgoraSttHelper {
         
         let requestBody = SttApiRequestModel.Strat(channelName: sttConfig.channelName,
                                                    audioUid: sttConfig.pullerUid,
-                                                   dataStreamUid: sttConfig.pusherUid)
+                                                   audioToken: sttConfig.pullerToken,
+                                                   dataStreamUid: sttConfig.pusherUid,
+                                                   dataStreamToken: sttConfig.pullerToken)
         requestBody.config.recognizeConfig.language = sttConfig.language.paramString()
         
         if let trans = sttConfig.translate {

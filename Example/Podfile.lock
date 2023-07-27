@@ -70,7 +70,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: c510de329cd905daff3f01fa4c872ea6d5eaee23
-  AgoraSttHelper: 642aebaf7cbfb85538f25afe67be098ffd4107bd
+  AgoraSttHelper: 92f97e4e872a665543186bbe8c464f8a07a5908d
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   DarkEggKit: 3b10ebb6fd0ff94e9f24dd71d016c23b45eea282
   PromiseKit: 49d70c53d5d20e346beaea4b276b5dd2ab446bb4
