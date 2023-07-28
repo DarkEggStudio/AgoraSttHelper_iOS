@@ -7,6 +7,7 @@
 
 import UIKit
 import PromiseKit
+import Alamofire
 import DarkEggKit
 
 // MARK: - keys and default values
@@ -52,7 +53,8 @@ extension ApiCaller {
             param = nil
         }
         let url = "\(baseUrl)/\(api.endpoint)"
-        let request = Alamofire.request(url, method: api.method, parameters: param, encoding: encoding, headers: header)
+        let headers = HTTPHeaders(header)
+        let request = AF.request(url, method: api.method, parameters: param, encoding: encoding, headers: headers)
         if let cancelToken = api.cancelToken {
             self.requestQueue[cancelToken] = request
         }

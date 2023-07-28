@@ -29,25 +29,22 @@ PODS:
   - AgoraRtcEngine_iOS/VirtualBackground (4.2.2)
   - AgoraRtcEngine_iOS/VQA (4.2.2)
   - AgoraSttHelper (0.1.0):
+    - Alamofire
     - DarkEggKit (~> 1.0.0)
     - PromiseKit
-    - PromiseKit/Alamofire
     - Protobuf (= 3.21.12)
-  - Alamofire (4.9.1)
+  - Alamofire (5.7.1)
   - DarkEggKit (1.0.3):
     - DarkEggKit/Common (= 1.0.3)
   - DarkEggKit/Common (1.0.3)
-  - PromiseKit (6.18.1):
-    - PromiseKit/CorePromise (= 6.18.1)
-    - PromiseKit/Foundation (= 6.18.1)
-    - PromiseKit/UIKit (= 6.18.1)
-  - PromiseKit/Alamofire (6.18.1):
-    - Alamofire (~> 4.0)
+  - PromiseKit (8.1.0):
+    - PromiseKit/CorePromise (= 8.1.0)
+    - PromiseKit/Foundation (= 8.1.0)
+    - PromiseKit/UIKit (= 8.1.0)
+  - PromiseKit/CorePromise (8.1.0)
+  - PromiseKit/Foundation (8.1.0):
     - PromiseKit/CorePromise
-  - PromiseKit/CorePromise (6.18.1)
-  - PromiseKit/Foundation (6.18.1):
-    - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.18.1):
+  - PromiseKit/UIKit (8.1.0):
     - PromiseKit/CorePromise
   - Protobuf (3.21.12)
 
@@ -70,10 +67,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: c510de329cd905daff3f01fa4c872ea6d5eaee23
-  AgoraSttHelper: 92f97e4e872a665543186bbe8c464f8a07a5908d
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AgoraSttHelper: 268536f15e5623fb0ca83e0fea56b540cf454eea
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   DarkEggKit: 3b10ebb6fd0ff94e9f24dd71d016c23b45eea282
-  PromiseKit: 49d70c53d5d20e346beaea4b276b5dd2ab446bb4
+  PromiseKit: b2aa70b27a5592499347efbb4dff1169cd8ce0b2
   Protobuf: 120350fc38646e2dedc26f49ecba778184ea1de2
 
 PODFILE CHECKSUM: f225957009c76087b2547abd71e8c3f082724740

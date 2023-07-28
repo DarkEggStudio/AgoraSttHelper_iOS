@@ -43,6 +43,6 @@ TODO: Add long description of the pod here.
   # s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'Protobuf', '3.21.12'
   s.dependency 'PromiseKit'
-  s.dependency 'PromiseKit/Alamofire'
+  s.dependency 'Alamofire'
   s.dependency 'DarkEggKit', '~>1.0.0'
 end
