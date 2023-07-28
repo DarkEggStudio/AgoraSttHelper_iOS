@@ -28,7 +28,7 @@ class AgoraSttTaskConfig {
     var pullerToken: String
     var pusherUid: String
     var pusherToken: String
-    var languages: [AgoraSTTLanguage] = [.english]
+    var languages: [AgoraSTTLanguage] = [.English]
     var translate: [TranslateConfig]?
     
     init(channelName: String, pullerUid: String, pullerToken: String, pusherUid: String, pusherToken: String, languages: [AgoraSTTLanguage], translate: [TranslateConfig]? = nil) {

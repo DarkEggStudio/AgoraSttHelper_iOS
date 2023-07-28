@@ -61,10 +61,14 @@ extension ViewController {
             Logger.debug("Can not load AgoraConfig.plist")
             return
         }
+        
+        let transCfgCnToJp = AgoraSttTanslate(source: .Chinese, target: [.Japanese])
+        
         let sttConfig = AgoraSttConfig(channelName: channelName,
-                                       languages: [.english],
+                                       languages: [.English, .Chinese],
                                        pullerUid: "1000",
                                        pusherUid: "1001")
+        sttConfig.translate = [transCfgCnToJp]
         self.sttHelper.start(withConfig: sttConfig) { success, taskId in
             //
             if success {

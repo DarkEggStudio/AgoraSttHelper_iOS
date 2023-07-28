@@ -10,14 +10,14 @@ public let maxLanguageCount: Int = 2
 
 /// config.recognizeConfig.language
 public enum AgoraSTTLanguage: String, Codable, CaseIterable {
-    case english    = "en-US"   // English - US
-    case englishIn  = "en-IN"   // English - India
-    case japanese   = "ja-JP"   // Japanese - Japan
-    case chinese    = "zh-CN"   // Chiness - China Mainland
-    case chineseTw  = "zh-TW"   // Chinese - Taiwanese Putonghua
+    case English    = "en-US"   // English - US
+    case EnglishIn  = "en-IN"   // English - India
+    case Japanese   = "ja-JP"   // Japanese - Japan
+    case Chinese    = "zh-CN"   // Chiness - China Mainland
+    case ChineseTw  = "zh-TW"   // Chinese - Taiwanese Putonghua
     case Cantonese  = "zh-HK"   // Chinese - Cantonese, Traditional
-    case hindi      = "hi-IN"   // Hindi = India
-    case korean     = "ko-KR"   // Korean - South Korea
+    case Hindi      = "hi-IN"   // Hindi = India
+    case Korean     = "ko-KR"   // Korean - South Korea
     case German     = "de-DE"   // German - Germany
     case Spanish    = "es_ES"   // Spanish - Spain
     case French     = "fr-FR"   // French = France
@@ -49,13 +49,13 @@ extension [AgoraSTTLanguage] {
 }
 
 public class AgoraSttConfig {
-    var channelName: String
-    var language: [AgoraSTTLanguage]
-    var pullerUid: String
-    var pullerToken: String?
-    var pusherUid: String
-    var pusherToken: String?
-    var translate: [AgoraSttTanslate]?
+    public var channelName: String
+    public var language: [AgoraSTTLanguage]
+    public var pullerUid: String
+    public var pullerToken: String?
+    public var pusherUid: String
+    public var pusherToken: String?
+    public var translate: [AgoraSttTanslate]?
     
     public init(channelName: String, languages: [AgoraSTTLanguage], pullerUid: String, pullerToken: String? = nil, pusherUid: String, pusherToken: String? = nil, translate: [AgoraSttTanslate]? = nil) {
         self.channelName = channelName
@@ -69,10 +69,10 @@ public class AgoraSttConfig {
 }
 
 public class AgoraSttTanslate {
-    var source: AgoraSTTLanguage
-    var target: [AgoraSTTLanguage]
+    public var source: AgoraSTTLanguage
+    public var target: [AgoraSTTLanguage]
     
-    init(source: AgoraSTTLanguage, target: [AgoraSTTLanguage]) {
+    public init(source: AgoraSTTLanguage, target: [AgoraSTTLanguage]) {
         self.source = source
         self.target = target
     }
