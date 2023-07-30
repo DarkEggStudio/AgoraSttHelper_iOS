@@ -79,8 +79,29 @@ public class AgoraSttHelper: NSObject {
         }
     }
     
-    public func query(task taskId: String, completion: ((Bool, AgoraSttTask?) -> Void)) {
-        
+    public func query(task taskId: String, completion: @escaping ((Bool, AgoraSttTaskStatus) -> Void)) {
+        guard let tokenName = self.tokenOfTask[taskId] else {
+            completion(false, .noData)
+            return
+        }
+        self.requestQuery(token: tokenName, taskId: taskId).done { res in
+            //
+            guard let statusStr = res.status, let status = AgoraSttTaskStatus(rawValue: statusStr) else {
+                completion(true, .unknown)
+                return
+            }
+            completion(true, status)
+        }.catch { error in
+            switch error {
+            case APIError.noData:
+                completion(false, .noData)
+                break
+            default:
+                completion(false, .unknown)
+            }
+        }.finally {
+            //
+        }
     }
     
     public func stop(task taskId: String, completion: @escaping ((Bool) -> Void)) {
@@ -89,6 +110,7 @@ public class AgoraSttHelper: NSObject {
             return
         }
         self.requestStop(token: tokenName, taskId: taskId).done { res in
+            self.currentTasks.removeValue(forKey: taskId)
             completion(true)
         }.catch { error in
             completion(false)

@@ -57,6 +57,7 @@ extension ViewController {
         guard let channelName = self.currentChannelName, !(channelName.isEmpty) else {
             return
         }
+        
         guard self.sttHelper.loadConfig() else {
             Logger.debug("Can not load AgoraConfig.plist")
             return
@@ -67,19 +68,21 @@ extension ViewController {
         let sttConfig = AgoraSttConfig(channelName: channelName,
                                        languages: [.English, .Chinese],
                                        pullerUid: "1000",
-                                       pusherUid: "1001")
+                                       pullerToken: nil,
+                                       pusherUid: "1001",
+                                       pusherToken: nil)
         sttConfig.translate = [transCfgCnToJp]
         self.sttHelper.start(withConfig: sttConfig) { success, taskId in
             //
             if success {
                 self.currentSttTaskId = taskId
-                let str = "RTT task started: \(taskId ?? "")"
+                let str = "STT task started: \(taskId ?? "")"
                 Logger.debug(str)
                 self.logLabel.text.append("\n\(str)")
             }
             else {
                 self.currentSttTaskId = nil
-                let str = "RTT task start failed"
+                let str = "STT task start failed"
                 Logger.debug(str)
                 self.logLabel.text.append("\n\(str)")
             }
@@ -105,6 +108,13 @@ extension ViewController {
     }
     
     @IBAction private func onQueryButtonClicked(_ sender: UIButton) {
-        
+        guard let taskId = self.currentSttTaskId else {
+            return
+        }
+        self.sttHelper.query(task: taskId) { success, status in
+            let text = "Query task \(taskId) success \(success), status is \(status.rawValue)"
+            Logger.debug(text)
+            self.logLabel.text.append("\n\(text)")
+        }
     }
 }

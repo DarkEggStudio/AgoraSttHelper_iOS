@@ -34,6 +34,16 @@ public enum AgoraSTTLanguage: String, Codable, CaseIterable {
     }
 }
 
+public enum AgoraSttTaskStatus: String, Codable, CaseIterable {
+    case idle       = "IDLE"
+    case preparing  = "PREPARING"
+    case inProgress = "IN_PROGRESS"
+    case stopping   = "STOPPING"
+    case stopped    = "STOPPED"
+    case unknown    = "UNKNOWN"
+    case noData     = "NODATA"
+}
+
 ///
 extension [AgoraSTTLanguage] {
     func paramString() -> String {

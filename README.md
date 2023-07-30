@@ -20,6 +20,19 @@ it, simply add the following line to your Podfile:
 pod 'AgoraSttHelper'
 ```
 
+## Functional interface
+
+### At first
+
+**Modify the AgoraConfig.plist**  
+Rename the AgoraConfig.plist.sample to AgoraConfig.plist  
+Fill your Agora App Id in ```agoraAppId```  
+Because the STT should call agora RESTful API, you must fill the in ```agoraApiAuth.authKey``` and ```agoraApiAuth.authSecret```  
+
+### Get singlton instance
+
+### Load config
+
 ## Author
 
 darkzero, darkzero_mk2@hotmail.com
