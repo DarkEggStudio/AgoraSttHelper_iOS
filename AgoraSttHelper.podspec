@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AgoraSttHelper'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'AgoraSttHelper. For quick start using agora speech-to-text service.'
   s.swift_version         = '5.8'
   s.ios.deployment_target = '13.0'
@@ -21,7 +21,16 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC
   Quick start lib for Agora speech to text service.
-                       DESC
+  
+  Release Note
+  ---
+  * 0.1.2 (2023/07/31)
+    - Addd **Query**
+    - Other
+  ---
+  * 0.1.1 (2023/07/28)
+    - First version
+  DESC
 
   s.homepage         = 'https://github.com/DarkEggStudio/AgoraSttHelper_iOS'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
