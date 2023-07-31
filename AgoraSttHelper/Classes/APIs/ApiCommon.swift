@@ -8,22 +8,17 @@
 //import UIKit
 import PromiseKit
 
-enum HttpCode: Int {
-    case success = 200
-    case notFound = 404
-    case needUpdate = 426
-}
-
 // MARK: -
 protocol CommonApiProtocol {
     // MARK: - required
     associatedtype ResponseObject: Codable
+    associatedtype ErrorModel: Codable = ApiErrorModel
     var endpoint: String { get }
     var method: HTTPMethod { get }
     // MARK: - option
     var parameter: [String: Any]? { get set }
     var cancelToken: String? { get set }
-    
+     
     // for dummy data
     var dummyFile: String? { get }
     

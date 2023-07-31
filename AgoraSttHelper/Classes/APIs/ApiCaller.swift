@@ -14,20 +14,16 @@ import DarkEggKit
 private let kContentTypeKey     = "Content-Type"
 private let kContentType        = "application/json"
 private let kAuthorizationKey   = "Authorization"
-private let kAuthorization      = "Bearer"
-private let kBasicAuthWord      = "Basic"
+private let kTokenAuthKeyword   = "Bearer"
+private let kBasicAuthKeyword   = "Basic"
 
-struct HttpResponseStatusCode {
-    static let success: Int     = 200
-    static let notFound: Int    = 404
-    static let needsUpate: Int  = 426
-}
+private let queueName = "AgoraSttApiRequestQueue"
 
 class ApiCaller: NSObject {
     // MARK: - Singleton
     static let shared: ApiCaller = {ApiCaller()}();
     internal var authToken: String?
-    var requestQueue: [String: DataRequest] = [:]
+    var requestQueues: [String: DataRequest] = [:]
 }
 
 extension ApiCaller {
@@ -36,14 +32,14 @@ extension ApiCaller {
         
         // token auth
         if let token = self.authToken {
-            header[kAuthorizationKey] = "\(kAuthorization) \(token)"
+            header[kAuthorizationKey] = "\(kTokenAuthKeyword) \(token)"
         }
         
         // basic auth for agora RESTful API
         if let basicAuthStr = AgoraSttHelper.shared.config.basicAuthToken(), !basicAuthStr.isEmpty {
-            header[kAuthorizationKey] = "\(kBasicAuthWord) \(basicAuthStr)"
+            header[kAuthorizationKey] = "\(kBasicAuthKeyword) \(basicAuthStr)"
         }
-        let requestQueue = DispatchQueue(label: "AgoraSttApiRequest")
+        let requestQueue = DispatchQueue(label: queueName)
         var param = api.parameter
         var encoding: ParameterEncoding = JSONEncoding.default
         if api.method == .get {
@@ -56,27 +52,21 @@ extension ApiCaller {
         let headers = HTTPHeaders(header)
         let request = AF.request(url, method: api.method, parameters: param, encoding: encoding, headers: headers)
         if let cancelToken = api.cancelToken {
-            self.requestQueue[cancelToken] = request
+            self.requestQueues[cancelToken] = request
         }
-        //Logger.debug("request url: \(url)")
-        //let s = String(data: request.request?.httpBody ?? Data(), encoding: .utf8)
-        //Logger.debug("request body: \(s ?? "")")
+        // call api, return promise
         return Promise { seal in
             request.validate().response(queue: requestQueue) { (response) in
                 // request end, remove from cancel queue
                 if let cancelToken = api.cancelToken {
-                    self.requestQueue[cancelToken] = nil
-                    self.requestQueue.removeValue(forKey: cancelToken)
+                    self.requestQueues[cancelToken] = nil
+                    self.requestQueues.removeValue(forKey: cancelToken)
                 }
                 
                 guard let statusCode = response.response?.statusCode else {
                     seal.reject(APIError.unknown)
                     return
                 }
-                
-                //Logger.error("response.response?.statusCode: \(statusCode)")
-                //Logger.error("response.response?.: \(response.response)")
-                
                 // 404
                 if statusCode == HttpStatusCodes.notFound.rawValue {
                     seal.reject(APIError.noData)
@@ -84,7 +74,6 @@ extension ApiCaller {
                 }
                 
                 let decoder = JSONDecoder()
-                
                 guard statusCode == HttpStatusCodes.success.rawValue else {
                     if let a = response.data {
                         if let err = try? decoder.decode(ApiErrorModel.self, from: a) {
@@ -127,14 +116,15 @@ extension ApiCaller {
         }
     }
     
+    // Cancel request by cancel token
     internal func cancelApi(token cancelToken: String?) {
         guard let key = cancelToken else {
             return
         }
-        if let request = self.requestQueue[key] {
+        if let request = self.requestQueues[key] {
             request.cancel()
-            self.requestQueue[key] = nil
-            self.requestQueue.removeValue(forKey: key)
+            self.requestQueues[key] = nil
+            self.requestQueues.removeValue(forKey: key)
         }
     }
 }
